@@ -55,6 +55,8 @@
 											<separator string="Materials Quantity" />
 											<group>
 												<group>
+													<field name="location_id" string="Location"/>
+													<field name="material_type" widget="radio"  options="{'horizontal':true}"/>
 													<field name="material_id" string="Name" />
           											<field name="material_unique_id" string="ID" />
 												</group>
@@ -113,7 +115,7 @@
 			<field name="res_model">materials.receiving</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('store_id.active_store','=',True)]</field>
+			<!-- <field name="domain">[('store_id.active_store','=',True)]</field> -->
 			<field name="search_view_id" ref="material_receiving_view_search" />
 			<field name="help" type="html">
 				<p class="oe_view_nocontent_create">
@@ -122,40 +124,6 @@
 			</field>
 		</record>
 
-		<!-- material receiving quantity view -->
-		<record id="material_receiving_quantity_form_view" model="ir.ui.view">
-			<field name="name">receiving.quantity.material.form</field>
-			<field name="model">receiving.quantity.material</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Materials Quantity Receving">
-					<sheet>
-						<separator string="Materials Quantity" />
-						<group>
-							<group>
-								<field name="material_id" />
-								<field name="material_unique_id" />
-							</group>
-							<group>
-								<field name="invoice_qty" />
-								<field name="received_qty" />
-								<field name="accepted_qty" />
-							</group>
-						</group>
-						<separator string="Review" />
-						<field name="review" nolabel="1">
-						</field>
-					</sheet>
-				</form>
-			</field>
-		</record>
-
-		<record id="material_receiving_quantity_action" model="ir.actions.act_window">
-			<field name="name">Material Quantity Receiving</field>
-			<field name="res_model">receiving.quantity.material</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
-		</record>
 		<!-- Material Receiving graph views -->
 		<record id="receiving_quantity_materials_view_graph" model="ir.ui.view">
 			<field name="name">receiving.quantity.material.graph</field>

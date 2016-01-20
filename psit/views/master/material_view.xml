@@ -57,6 +57,7 @@
 							<page string="Description">
 								<br/>
 								<field name="description" placeholder="Description" nolabel="1"/>
+								<field name="is_sets" invisible="1"/>
 							</page>
 						</notebook>
 					</sheet>
@@ -87,7 +88,8 @@
 			<field name="res_model">material.material</field>
 			<field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('store_id.active_store','=',True), ('is_sets','=',False)]</field>
+            <field name="domain">[('is_sets','=',False)]</field>
+            <!-- <field name="domain">[('store_id.active_store','=',True), ('is_sets','=',False)]</field> -->
             <field name="context">{'material_type':0}</field>
             <field name="search_view_id" ref="psit_material_view_filter"/>
             <field name="view_ids" 

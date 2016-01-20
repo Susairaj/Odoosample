@@ -20,12 +20,11 @@ class MaterialReceiving(models.Model):
     
     @api.model
     def create(self, vals):
-        
         vals.update({'name':self.env['ir.sequence'].get('materials.receiving')})
         accepted_quantities = vals.get('material_ids')
         for record in accepted_quantities:
             material_id= record[2]['material_id']
-            material_obj = self.env['material.material'].search([('id', '=', material_id )])
+            material_obj = self.env['material.material'].search([('material_id', '=', material_id )])
             material_qty=material_obj.available_units
             total= record[2]['accepted_qty'] + material_qty
             self.env['material.material'].browse([material_id]).write({'available_units':total})
@@ -35,31 +34,41 @@ class MaterialReceiving(models.Model):
     def write(self, vals):
         total= 0.0;
         if vals.get('material_ids'):
-            accepted_quantities = vals.get('material_ids')
-            for accepted_qty in accepted_quantities:
-                material_id = accepted_qty[1]
-                if accepted_qty[1] and accepted_qty[2]:
-                    material_qty1= accepted_qty[2]['accepted_qty']
-                    material_re_obj = self.env['receiving.quantity.material'].search([('id', '=', material_id )])
-                    material_obj = self.env['material.material'].search([('id', '=', material_re_obj.material_id.id )])
-                    material_qty_obj = self.env['receiving.quantity.material'].search([('id', '=', material_re_obj.id )])
-                    if material_qty_obj.accepted_qty<material_qty1:
-                        add_master = material_qty1 - material_qty_obj.accepted_qty
-                        total= material_obj.available_units + add_master
-                        self.env['material.material'].browse([material_obj.id]).write({'available_units':total})
-                    elif material_qty_obj.accepted_qty>material_qty1:
-                        substract_master =  material_qty_obj.accepted_qty - material_qty1 
-                        total= material_obj.available_units - substract_master
-                        self.env['material.material'].browse([material_obj.id]).write({'available_units':total}) 
-                elif accepted_qty[1]== False and accepted_qty[2]:
-                    material_obj = self.env['material.material'].search([('id', '=', accepted_qty[2]['material_id'])])
-                    total = material_obj.available_units + accepted_qty[2]['accepted_qty']
-                    material_obj.write({'available_units':total})
+            materials = vals.get('material_ids')
+            for material in materials:
+                    material_id = material[1]
+                    if material[1] and material[2]:
+                        material_re_obj = self.env['receiving.quantity.material'].search([('id', '=', material_id )])
+                        material_obj = self.env['material.material'].search([('material_id', '=', material_re_obj.material_id.id )])
+                        material_qty_obj = self.env['receiving.quantity.material'].search([('id', '=', material_re_obj.id )])
+                        if 'accepted_qty' in material[2]:
+                            if material_qty_obj.accepted_qty<material[2]['accepted_qty']:
+                                add_master = material[2]['accepted_qty'] - material_qty_obj.accepted_qty
+                                total= material_obj.available_units + add_master
+                                self.env['material.material'].browse([material_obj.id]).write({'available_units':total})
+                            elif material_qty_obj.accepted_qty>material[2]['accepted_qty']:
+                                substract_master =  material_qty_obj.accepted_qty - material[2]['accepted_qty'] 
+                                total= material_obj.available_units - substract_master
+                                self.env['material.material'].browse([material_obj.id]).write({'available_units':total}) 
+                        elif material[1]== False and material[2]:
+                            material_obj = self.env['material.material'].search([('material_id', '=', material[2]['material_id'])])
+                            if 'accepted_qty' in material[2]:
+                                total = material_obj.available_units + material[2]['accepted_qty']
+                                material_obj.write({'available_units':total})
         return super(MaterialReceiving, self).write(vals)
 
 class MaterialReceivingQuantity(models.Model):
     _name = 'receiving.quantity.material'
     _description = 'Receiving Quantity Material'
+
+    @api.onchange('material_type')
+    def onchange_material_type(self):
+        res = {}
+        if self.material_type == 'sets':
+            res['domain'] = {'material_id': [('is_sets', '=', True)]}
+        else:
+            res['domain'] = {'material_id': [('is_sets', '=', False)]}
+        return res
 
     material_receive_id = fields.Many2one('materials.receiving', 'Receiving Material')
     material_id = fields.Many2one('material.material', 'Name', required=True, domain="[('store_id.active_store','=',True)]")
@@ -68,6 +77,9 @@ class MaterialReceivingQuantity(models.Model):
     received_qty = fields.Float('Received Qty')
     accepted_qty = fields.Float('Accepted Qty', required=True)
     review = fields.Text('Review')
+    material_type = fields.Selection([('sets', 'Sets'),('individual', 'Individual')], 'Material Type')
+    store_id = fields.Many2one('store.store', string='Selected Store', readonly=True, default=lambda self: self.env.user.active_store_id)
+    location_id = fields.Many2one('locations.locations','Location', domain="[('store_id.active_store','=',True)]")
     
 class InterReceivingAttachment(models.Model):
     _name = 'inter.receiving.attachment'

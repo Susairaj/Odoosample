@@ -73,8 +73,18 @@ class MaterialReturnQty(models.Model):
     _description = "Materials Return Quantity"
     _rec_name = 'material_id'
     
+    @api.onchange('material_type')
+    def onchange_material_type(self):
+        res = {}
+        if self.material_type == 'sets':
+            res['domain'] = {'material_id': [('is_sets', '=', True)]}
+        else:
+            res['domain'] = {'material_id': [('is_sets', '=', False)]}
+        return res
+    
     material_return_qty_id = fields.Many2one('materials.return', 'Receiving Material')
     material_id = fields.Many2one('material.material', 'Name', required=True, domain="[('store_id.active_store','=',True)]")
     material_unique_id = fields.Char('ID', related='material_id.unique_id', readonly=True) 
     material_qty = fields.Float('Qty', required=True)
+    material_type = fields.Selection([('sets', 'Sets'),('individual', 'Individual')], 'Material Type')
     store_id = fields.Many2one('store.store', string='Selected Store', readonly=True, default=lambda self: self.env.user.active_store_id)

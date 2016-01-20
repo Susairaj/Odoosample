@@ -44,6 +44,20 @@
 										<field name="material_unique_id"/>
 										<field name="material_qty"/>
 									</tree>
+									<form>
+										<sheet>
+										<group>
+											<group>
+												<field name="material_type" widget="radio"  options="{'horizontal':true}"/>
+												<field name="material_id"/>
+											</group>
+											<group>
+												<field name="material_unique_id"/>
+												<field name="material_qty"/>
+											</group>
+										</group>
+										</sheet>
+									</form>
 								</field>
 							</page>
 							<page string="Attachments">
