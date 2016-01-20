@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="name">Suppliers</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('store_id.active_store','=',True)]</field>
+        </record>
+		
+		<record id="inherited_res_partner_view_form_psit" model="ir.ui.view">
+			<field name="name">res.partner.form.inherit.psit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+			<xpath expr="//field[@name='mobile']" position="replace"/>
+			<xpath expr="//field[@name='email']" position="replace"/>
+				<xpath expr="//field[@name='phone']" position="replace">
+					<group>
+						<field name="street" placeholder="Street..." />
+	                    <field name="street2" placeholder="Street 2..."  />
+	                    <field name="city" placeholder="City"  />
+	                    <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' on_change="onchange_state(state_id)"   context="{'country_id': country_id, 'zip': zip}"/>
+	                    <field name="zip" placeholder="ZIP"  />
+	                    <field name="country_id" placeholder="Country" options='{"no_open": True, "no_create": True}' />
+					</group>
+				</xpath>
+				<xpath expr="//group/group[1]" position="replace">
+					<group>
+						<field name="contact_person" placeholder="Contact Person"/>
+						<field name="tin_number" placeholder="TIN Number"/>
+						<field name="service_tax" placeholder="Service Tax"/>
+						<field name="pan" placeholder="PAN Number"/>
+						<field name="type" invisible="1"/>
+						<field name="phone" widget="phone" placeholder="Phone Number"/>
+						<field name="mobile" widget="phone" placeholder="Mobile Number"/>
+						<field name="provider_of" placeholder="Provider Of"/>
+	                </group>
+				</xpath>
+				
+				<xpath expr="//field[@name='parent_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='function']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='fax']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='title']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='lang']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='category_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//notebook" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='company_type']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//button[@name='toggle_active']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="inherited_res_partner_view_tree_psit" model="ir.ui.view">
+			<field name="name">res.partner.tree.inherit.psit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='display_name']" position="attributes">
+					<attribute name="string">Full Name</attribute>
+				</xpath>
+				<xpath expr="//field[@name='display_name']" position="before">
+					<field name="id" />
+				</xpath>
+				<xpath expr="//field[@name='display_name']" position="after">
+					<field name="contact_person" />
+					<field name="mobile" />
+				</xpath>
+				<xpath expr="//field[@name='email']" position="replace">
+					<field name="street" string="Address"/>
+					<field name="provider_of" string="Provider Of"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

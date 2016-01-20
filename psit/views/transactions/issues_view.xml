@@ -1,0 +1,140 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="issues_issues_view_tree" model="ir.ui.view">
+			<field name="name">issues.issues.tree</field>
+			<field name="model">issues.issues</field>
+			<field name="arch" type="xml">
+				<tree string="Issues Details">
+					<field name="name" />
+					<field name="date" />
+					<field name="issue_challan_no" />
+					<field name="indent_no" />
+					<field name="indent_receive_no" />
+					<field name="contractor_id" />
+					<field name="block_id" />
+					<field name="location_id" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="issues_issues_view_form" model="ir.ui.view">
+			<field name="name">issues.issues.form</field>
+			<field name="model">issues.issues</field>
+			<field name="arch" type="xml">
+				<form string="Issues Details">
+					<sheet string="Issues Details">
+						<separator string="Issue" />
+						<group>
+							<group>
+								<field name="date" />
+								<field name="indent_no" />
+								<field name="issue_challan_no" />
+								<field name="indent_receive_no" />
+							</group>
+							<group>
+								<field name="contractor_id" options="{'no_create': True, 'no_open': True}" />
+								<field name="block_id" options="{'no_create': True, 'no_open': True}" />
+								<field name="location_id" options="{'no_create': True, 'no_open': True}"
+									domain="[('block_id', '=', block_id)]" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Materials">
+								<separator string="Materials" />
+								<field name="materials_ids" nolabel="1">
+									<tree string="Materials" editable="bottom">
+										<field name="material_material_id" options="{'no_create': True, 'no_open': True}" />
+										<field name="material_no" />
+										<field name="requested_qty" />
+										<field name="issued_qty" />
+									</tree>
+								</field>
+								<separator string="Memo" />
+								<field name="memo" nolabel="1" placeholder="Memo Description..." />
+							</page>
+							<page string="Attachments">
+								<field name="issue_attachment_ids" nolabel="1">
+									<tree string="Issues Attachments" create="false">
+										<field name="issue_attach_type_id" />
+									</tree>
+									<form string="Issues Attachment" create="false">
+										<sheet string="Issues Attachment">
+											<group>
+												<group>
+													<field name="issue_attach_type_id" options="{'no_create': True, 'no_open': True}"
+														readonly="1" />
+												</group>
+												<group></group>
+												<group>
+													<field name="issue_attachment_ids" widget="many2many_binary"/>
+												</group>
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="issues_issues_view_search" model="ir.ui.view">
+			<field name="name">issues.issues.search</field>
+			<field name="model">issues.issues</field>
+			<field name="arch" type="xml">
+				<search string="Issues Details">
+					<field name="name" string="Issue No" />
+					<field name="date" string="Date" />
+					<field name="contractor_id" string="Contractor" />
+					<field name="block_id" string="Block" />
+					<field name="location_id" string="Location"/>
+					<separator />
+					<group expand="0" string="Group By">
+						<filter string="Contractors" context="{'group_by': 'contractor_id'}" />
+						<filter string="Blocks" context="{'group_by':'block_id'}" />
+						<filter string="Locations" context="{'group_by':'location_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		
+		<record id="issues_material_view_graph" model="ir.ui.view">
+			<field name="name">issues.material.graph</field>
+			<field name="model">issues.material</field>
+			<field name="arch" type="xml">
+			    <graph string="Issues Analysis"  type="pie">
+			        <field name="material_material_id"/>
+			        <field name="issued_qty" type="measure"/>
+			    </graph>
+			</field>
+       </record>
+	   
+	   <record id="issues_material_action" model="ir.actions.act_window">
+			<field name="name">Issues</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">issues.material</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="issues_material_view_graph" />
+		</record>
+		
+		<record id="issues_issues_action" model="ir.actions.act_window">
+			<field name="name">Issues</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">issues.issues</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<!-- <field name="domain">[('store_id.active_store','=',True)]</field> -->
+			<field name="search_view_id" ref="issues_issues_view_search" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new Issues.
+				</p>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

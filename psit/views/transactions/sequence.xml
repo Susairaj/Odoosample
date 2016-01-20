@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Issues Sequence -->
+		<record model="ir.sequence" id="seq_issues_issues">
+			<field name="name">Issues</field>
+			<field name="code">issues.issues</field>
+			<field name="prefix"></field>
+			<field name="padding">4</field>
+			<field name="number_next">1000</field>
+			<field name="number_increment">1</field>
+		</record>
+
+		<!-- Inter Store Sequence -->
+		<record model="ir.sequence" id="seq_inter_store">
+			<field name="name">Inter Store</field>
+			<field name="code">inter.store</field>
+			<field name="prefix"></field>
+			<field name="padding">1</field>
+			<field name="number_next">1</field>
+			<field name="number_increment">1</field>
+		</record>
+
+		<!-- Material Receiving Sequence -->
+		<record model="ir.sequence" id="seq_receiving_material">
+			<field name="name">Materials Receiving</field>
+			<field name="code">materials.receiving</field>
+			<field name="prefix"></field>
+			<field name="padding">1</field>
+			<field name="number_next">1</field>
+			<field name="number_increment">1</field>
+		</record>
+
+		<!-- Material Return Sequence -->
+		<record model="ir.sequence" id="seq_return_material">
+			<field name="name">Materials Return</field>
+			<field name="code">materials.return</field>
+			<field name="prefix"></field>
+			<field name="padding">1</field>
+			<field name="number_next">1</field>
+			<field name="number_increment">1</field>
+		</record>
+
+	</data>
+</openerp>

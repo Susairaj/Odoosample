@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="project_tree_view" model="ir.ui.view">
+			<field name="name">project.project.tree</field>
+			<field name="model">project.project</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Projects">
+				     <field name="project_manual_id" string="ID"/>
+				     <field name="name" string="Name"/>
+				     <field name="company_id" />
+				     <field name="project_type" string="Type" />
+			    </tree>
+			</field>
+		</record>
+		
+		<record id="project_form_view" model="ir.ui.view">
+			<field name="name">project.project.form</field>
+			<field name="model">project.project</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Projects">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="project_manual_id"/>
+							</group>
+							<group>	
+								<field name="company_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="project_type" />
+							</group>
+						</group>
+						<separator string="Description"/>
+						<field name="description" nolabel="1" placeholder="Description"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="project_view_search" model="ir.ui.view" >
+			<field name="name">project.project.search</field>
+			<field name="model">project.project</field>
+			<field name="arch" type="xml">
+				<search string="Projects">
+					<field name="name" string="Name" />
+					<field name="project_manual_id" string="Project Id" />
+					<field name="company_id" string="Company" />
+					<field name="project_type" string="Project Type" />
+					<filter string="Project Name" domain="[]" context="{'group_by': 'name'}"/>
+					<filter string="Company" domain="[]" context="{'group_by': 'company_id'}"/>
+					<filter string="Project Type" domain="[]" context="{'group_by': 'project_type'}"/>
+				</search>
+			</field>
+		</record>
+		
+		<record id="project_project_action" model="ir.actions.act_window" >
+			<field name="name">Projects</field>
+			<field name="res_model">project.project</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="project_view_search" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a new Project.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</openerp>

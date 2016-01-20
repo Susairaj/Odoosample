@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<menuitem name="Dashboard" id="menu_base_psit_dashboard" action="store_store_action"  sequence="1"/>
+		<menuitem name="Configuration" id="menu_base_psit_configuration_master" sequence="2"/>
+		<menuitem name="Master" id="menu_base_psit_master" sequence="3"/>
+		<menuitem name="Transactions" id="menu_base_psit_transactions" sequence="4"/>
+		<menuitem name="Reports" id="menu_base_psit_reports" sequence="5"/>
+		<menuitem name="Site Inspector" id="menu_base_psit_site_inspector" sequence="6"/>
+		
+		<!--Configurations  -->	
+		<menuitem name="Material" id="psit_material_configuration_menu" parent="menu_base_psit_configuration_master" sequence="1"/>
+			<menuitem name="Material" id="psit_sub_material_configuration_menu" parent="psit_material_configuration_menu" action="material_configuration_action"  sequence="1"/>
+			
+		<menuitem name="Master" id="psit_master_configuration_menu" parent="menu_base_psit_configuration_master" sequence="2"/>
+			<menuitem name="Materials Units" id="psit_materials_units_menu" parent="psit_master_configuration_menu" action="materials_units_action"  sequence="1"/>
+			<menuitem name="Price Level" id="psit_price_level_menu" parent="psit_master_configuration_menu" action="price_level_action"  sequence="2"/>
+		    
+		<menuitem name="Transaction" id="psit_transaction_configuration_menu" parent="menu_base_psit_configuration_master" sequence="3"/>
+			<menuitem name="Return Reason" id="psit_material_return_reason_menu" parent="psit_transaction_configuration_menu" action="return_reason_form_action" sequence="1"/>	
+			<menuitem name="Issue Attachment" id="issue_attachment" parent="psit_transaction_configuration_menu" action="issue_attachment_type_action" sequence="2"/>
+		    <menuitem name="Receiving Attachment" id="receiving_attachment" parent="psit_transaction_configuration_menu" action="receiving_attachment_type_action" sequence="3"/>
+		    <menuitem name="Returns Attachment" id="return_attachment" parent="psit_transaction_configuration_menu" action="return_attachment_type_action" sequence="4"/>
+		
+		<!-- Master -->
+		<menuitem name="Master" id="psit_master_menu" parent="menu_base_psit_master" sequence="1"/>
+			<menuitem name="Company" id="psit_company_menu" parent="psit_master_menu" action="base.action_res_company_form" sequence="1"/>			
+			<menuitem name="Projects" id="psit_projects_menu" parent="psit_master_menu" action="project_project_action" sequence="2"/>			
+			<menuitem name="Users" id="psit_users_menu" parent="psit_master_menu" action="base.action_res_users" sequence="3"/>			
+			<menuitem name="Store" id="psit_store_menu" parent="psit_master_menu" action="store_store_action" sequence="4"/>			
+			<menuitem name="Store Access" id="psit_store_access_menu" parent="psit_master_menu" action="store_access_action" sequence="5"/>						
+			<menuitem name="Blocks" id="psit_blocks_menu" parent="psit_master_menu" action="blocks_blocks_action" sequence="6"/>			
+			<menuitem name="Locations" id="psit_locations_menu" parent="psit_master_menu" action="locations_locations_action" sequence="7"/>			
+			<menuitem name="Suppliers" id="psit_suppliers_menu" parent="psit_master_menu" action="base.action_partner_supplier_form" sequence="8"/>			
+			<menuitem name="Contractors" id="psit_contractors_menu" parent="psit_master_menu" action="contractor_contractor_action" sequence="9"/>
+			<!-- <menuitem name="Add New Inter Store" id="psit_add_new_inter_store_menu" parent="psit_master_menu" action="inter_store_action" sequence="10"/> -->
+									
+			<menuitem name="Materials Categories" id="psit_materials_categories_menu" parent="psit_master_menu" action="materials_categories_action" sequence="10"/>	
+			<menuitem name="Materials" id="psit_materials_menu" parent="psit_master_menu" action="psit_material_action" sequence="11"/>
+			<menuitem name="Materials Sets" id="psit_materials_sets_menu" parent="psit_master_menu" action="material_material_sets_action" sequence="12"/>
+   			<menuitem name="BOQ" id="psit_materials_boq_menu" parent="psit_master_menu" action="boq_quantity_action" sequence="13"/>
+			
+		<!-- Transactions -->
+		<menuitem name="Transactions" id="psit_transactions_menu" parent="menu_base_psit_transactions" sequence="1"/>
+			<menuitem name="Issue Inter Store Transfer" id="psit_issue_inter_store_transfer_menu" parent="psit_transactions_menu" action="blocks_blocks_action" sequence="1"/>			
+			<menuitem name="Issue" id="psit_issue_menu" parent="psit_transactions_menu" action="issues_issues_action" sequence="2"/>
+			<menuitem name="Receivings Inter Store Transfer" id="psit_receivings_inter_store_transfer_menu" parent="psit_transactions_menu" action="receivings_inter_storetransfer_action" sequence="3"/>
+			<menuitem name="Receivings" id="psit_receivings_menu" parent="psit_transactions_menu" action="material_receiving_action" sequence="4"/>			
+			<menuitem name="Issue Returns" id="psit_issue_returns_menu" parent="psit_transactions_menu" action="issues_returns_action" sequence="5"/>
+			<menuitem name="Receivings Returns" id="psit_receivings_returns_menu" parent="psit_transactions_menu" action="material_return_action" sequence="6"/>
+			
+		<!-- Reports -->
+		<menuitem name="Reports" id="psit_report_menu" parent="menu_base_psit_reports" sequence="1"/>
+			<menuitem name="Transaction Summary Report" id="psit_transaction_summary_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="1"/>			
+			<menuitem name="Sub-Contractor Summary Report" id="psit_sub_contractor_summary_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="2"/>
+			<menuitem name="Sub-Contractor Detailed Transaction Report" id="psit_sub_contractor_detailed_transaction_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="3"/>			
+			<menuitem name="Supplier Summary Report" id="psit_supplier_summary_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="4"/>
+			<menuitem name="Supplier Detailed Transaction Report" id="psit_supplier_detailed_transaction_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="5"/>
+			<menuitem name="Supplier Detailed Short Receipt" id="psit_supplier_detailed_short_receipt_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="6"/>			
+			<menuitem name="InterStore Issue Detail Report" id="psit_interstore_issue_detail_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="7"/>
+			<menuitem name="InterStore Issue Summary Report" id="psit_interstore_issue_summary_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="8"/>
+			<menuitem name="InterStore Receipt Detail Report" id="psit_interstore_receipt_detail_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="9"/>
+			<menuitem name="InterStore Receipt Summary Report" id="psit_interstore_receipt_summary_report_menu" parent="psit_report_menu" action="blocks_blocks_action" sequence="10"/>
+		
+		<!-- Site Inspector -->
+		<menuitem name="Site Inspector" id="psit_site_inspector_menu" parent="menu_base_psit_site_inspector" sequence="1"/>
+			<menuitem name="Site Inspector" id="psit_site_inspector_sub_menu" parent="psit_site_inspector_menu" action="site_inspector_form_action" sequence="1"/>			
+
+	</data>
+</openerp>
+	

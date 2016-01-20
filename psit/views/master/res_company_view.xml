@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="inherited_company_view_form_psit" model="ir.ui.view">
+			<field name="name">res.company.form.inherit.psit</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//div" position="after">
+					<group>
+						<group>
+							<field name="manual_id" placeholder="Unique Manual Id"/>
+							<field name="business_type" placeholder="Business type"/>
+							<field name="street" string="Address 1" placeholder="Address line 1" class="o_address_street"/>
+	                        <field name="street2" string="Address 2" placeholder="Address line 2" class="o_address_street"/>
+	                        <field name="city" placeholder="City" class="o_address_city"/>
+	                        <field name="state_id" string="State/Province" class="o_address_state" placeholder="State or Province" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+	                        <field name="zip" placeholder="Your zip code" class="o_address_zip"/>
+	                        <field name="country_id" placeholder="Your Country" class="o_address_country" options='{"no_open": True}' on_change="on_change_country(country_id)"/>
+						</group>
+						<group>
+							<field name="phone" placeholder="Your phone number"/>
+							<field name="email" placeholder="Your email address"/>
+							<field name="description" placeholder="Company Description"/>
+						</group>
+					</group>
+				</xpath>
+				<xpath expr="//label[@for='rml_header1']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='rml_header1']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//notebook" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="inherited_res_company_view_tree_psit" model="ir.ui.view">
+			<field name="name">res.company.tree.inherit.psit</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="string">Name</attribute>
+				</xpath>
+				<xpath expr="//field[@name='name']" position="before">
+					<field name="manual_id" string="ID"/>
+				</xpath>
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="business_type" string="Type"/>
+					<field name="city" string="City"/>
+					<field name="phone" string="Phone"/>
+					<field name="email"/>
+				</xpath>
+				<xpath expr="//field[@name='partner_id']" position="replace"/>
+			</field>
+		</record>
+		
+		<record id="vres_company_view_filter" model="ir.ui.view">
+            <field name="name">res.company.select</field>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <search string="Search User">
+                	<field name="name" />
+                	<field name="state_id" />
+                	<field name="country_id" />
+                	<field name="manual_id" />
+                	<field name="business_type" />
+               </search>
+            </field>
+        </record>
+
+	</data>
+</openerp>

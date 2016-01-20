@@ -1,0 +1,97 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="inter_store_view_tree" model="ir.ui.view">
+			<field name="name">inter.store.tree</field>
+			<field name="model">inter.store</field>
+			<field name="arch" type="xml">
+				<tree string="Inter Store Details">
+					<field name="name"/>
+					<field name="store_keeper_id" />
+					<field name="business_title" />
+					<field name="mobile" />
+					<field name="phone" />
+					<field name="address" />
+					<field name="email" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="inter_store_view_form" model="ir.ui.view">
+			<field name="name">inter.store.form</field>
+			<field name="model">inter.store</field>
+			<field name="arch" type="xml">
+				<form string="Inter Store Details">
+					<sheet string="Inter Store Details">
+						<group string="Basic Details">
+							<group>
+								<field name="store_keeper_id"/>
+								<field name="mobile"/>
+								<field name="email"/>
+							</group>
+							<group>
+								<field name="business_title"/>
+								<field name="phone"/>
+								<field name="price_level"/>
+							</group>
+						</group>
+						<group string="Authorized Person Details">
+							<group>
+								<field name="authorized_person1_id"/>
+								<field name="authorized_person2_id"/>
+								<field name="authorized_person3_id"/>
+							</group>
+							<group>
+								<field name="mobile1"/>
+								<field name="mobile2"/>
+								<field name="mobile3"/>
+							</group>
+						</group>
+						<group string="Address Details">
+							<group>
+								<field name="address"/>
+							</group>
+							<group>
+								<field name="city"/>
+								<field name="state_id"/>
+								<field name="country_id"/>
+							</group>
+						</group>
+						<separator string="Notes"/>
+						<field name="notes" nolabel="1" placeholder="Notes..."/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="inter_store_view_search" model="ir.ui.view">
+            <field name="name">inter.store.search</field>
+            <field name="model">inter.store</field>
+            <field name="arch" type="xml">
+                <search string="Inter Store Details">
+                    <field name="store_keeper_id" string="Name"/>
+                    <field name="mobile" string="mobile"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Name" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="inter_store_action" model="ir.actions.act_window">
+           <field name="name">Inter Store</field>
+           <field name="type">ir.actions.act_window</field>
+           <field name="res_model">inter.store</field>
+           <field name="view_type">form</field>
+           <field name="view_mode">tree,form</field>
+           <field name="search_view_id" ref="inter_store_view_search"/>
+           <field name="help" type="html">
+           <p class="oe_view_nocontent_create">
+			    Click to add a new Inter Store.
+			</p></field>
+        </record>
+        
+	</data>
+</openerp>

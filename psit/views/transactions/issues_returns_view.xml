@@ -1,0 +1,102 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="issues_returns_view_tree" model="ir.ui.view">
+			<field name="name">issues.returns.tree</field>
+			<field name="model">issues.returns</field>
+			<field name="arch" type="xml">
+				<tree string="Issues Details">
+					<field name="name" />
+					<field name="date" />
+					<field name="contractor_id" />
+					<field name="mrn_no" />
+					<field name="memo" />
+				</tree>
+			</field>
+		</record>
+		<record id="issues_returns_view_form" model="ir.ui.view">
+			<field name="name">issues.returns.form</field>
+			<field name="model">issues.returns</field>
+			<field name="arch" type="xml">
+				<form string="Issues Return Details">
+					<sheet string="Issues Return Details">
+						<separator string="Issues Return" />
+						<group>
+							<group>
+								<field name="date" />
+								<field name="mrn_no" />
+								<field name="memo" />
+							</group>
+							<group>
+								<field name="contractor_id" options="{'no_create': True, 'no_open': True}" />
+								<field name="block_id" options="{'no_create': True, 'no_open': True}" />
+								<field name="location_id" options="{'no_create': True, 'no_open': True}"
+									domain="[('block_id', '=', block_id)]" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Materials">
+								<separator string="Materials" />
+								<field name="materials_ids" nolabel="1">
+									<tree string="Materials" editable="bottom">
+										<field name="material_material_id" options="{'no_create': True, 'no_open': True}" />
+										<field name="material_no" />
+										<field name="quantity" />
+									</tree>
+								</field>
+							</page>
+							<page string="Attachments">
+								<field name="issue_return_attachment_ids" nolabel="1">
+									<tree string="Issues Returns Attachments" create="false">
+										<field name="issue_return_attach_type_id" />
+									</tree>
+									<form string="Issues Return Attachment" create="false">
+										<sheet string="Issues return Attachment">
+											<group>
+												<group>
+													<field name="issue_return_attach_type_id" options="{'no_create': True, 'no_open': True}"
+														readonly="1" />
+												</group>
+												<group></group>
+												<group>
+													<field name="issue_return_attachment_ids" widget="many2many_binary"/>
+												</group>
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="issues_returns_view_search" model="ir.ui.view">
+			<field name="name">issues.returns.search</field>
+			<field name="model">issues.returns</field>
+			<field name="arch" type="xml">
+				<search string="Issues Return Details">
+					<field name="mrn_no" string="MRN No" />
+					<field name="contractor_id" string="Contractor" />
+					<field name="block_id" string="Block" />
+					<field name="location_id" string="Location"/>
+					<separator />
+					<group expand="0" string="Group By">
+						<filter string="Contractors" context="{'group_by': 'contractor_id'}" />
+						<filter string="Blocks" context="{'group_by':'block_id'}" />
+						<filter string="Locations" context="{'group_by':'location_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+	   <record id="issues_returns_action" model="ir.actions.act_window">
+			<field name="name">Issues Returns</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">issues.returns</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="issues_returns_view_search" />
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="psit_material_sets_view_tree" model="ir.ui.view">
+			<field name="name">material.material.tree</field>
+			<field name="model">material.material</field>
+			<field name="arch" type="xml">
+				<tree string="Materials Sets">
+					<field name="unique_id" string="ID"/>
+					<field name="material_id" string="Sets Name"/>
+					<field name="unit_id" string="Sets Unique ID"/>
+					<field name="category_id"/>
+					<field name="alert_units" />
+					<field name="available_units" />
+					<field name="material_count"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="psit_material_sets_view_form" model="ir.ui.view">
+			<field name="name">material.material.form</field>
+			<field name="model">material.material</field>
+			<field name="arch" type="xml">
+				<form string="Materials Sets">
+					<sheet>
+						<field name="image" widget="image" class="oe_avatar" />
+						<div class="oe_title">
+							<label for="material_id" string="Set Name" class="oe_edit_only" />
+							<h1>
+								<field name="material_id" placeholder="Name" class="oe_inline" options="{'no_create':True, 'no_open':True}"/>
+							</h1>
+							<label for="unique_id" string="Set Unique ID" class="oe_edit_only" />
+							<h3>
+								<field name="unique_id" placeholder="Unique ID" class="oe_inline" />
+							</h3>
+							<!-- <div class="oe_right oe_button_box" name="buttons">
+								<button class="oe_inline oe_stat_button" icon="fa-star" type="object" invisible="1"
+									name="qty_count" style="position: absolute;top: 54px;right: 200px;">
+									<field string="BOQ Count" name="boq_total" widget="statinfo" />
+								</button>
+							</div> -->
+						</div>
+						<group>
+							<group>
+						        <field name="category_id" options="{'no_create': True, 'no_open': True}"/>
+						        <field name="unit_id" options="{'no_create': True, 'no_open': True}"/>
+						        <field name="boq" />
+					        </group>
+							<group>
+								<field name="alert_units" />
+								<field name="location_id" options="{'no_create':True, 'no_open':True}"/>
+								<field name="available_units" invisible="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="BOQ Details" >
+								<field name="material_ids">
+									<tree editable="bottom">
+										<field name="material_id" options="{'no_create':True, 'no_open':True}"/>
+										<field name="category_id" options="{'no_create':True, 'no_open':True}"/>
+										<field name="unit_id" options="{'no_create':True, 'no_open':True}"/>
+										<field name="qty" string="QTY"/>
+										<field name="date" />
+									</tree>
+								</field>
+							</page>
+							<page string="Description">
+								<br/>
+								<field name="description" placeholder="Description" nolabel="1"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="material_material_sets_action" model="ir.actions.act_window">
+            <field name="name">Material Sets</field>
+            <field name="res_model">material.material</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('store_id.active_store','=',True), ('is_sets','=',True)]</field>
+            <field name="context">{'material_type':1}</field>
+            <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('psit_material_sets_view_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('psit_material_sets_view_form')})]"/>
+        </record>
+		
+	</data>
+</openerp>

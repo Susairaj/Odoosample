@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="store_access_view_tree" model="ir.ui.view">
+			<field name="name">store.access.tree</field>
+			<field name="model">store.access</field>
+			<field name="arch" type="xml">
+				<tree string="Store Access">
+					<field name="user_rel_id" />
+					<field name="user_id" string="User Name"/>
+					<field name="email" />
+					<field name="store_id" string="Store Access"/>
+					<field name="modules" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="store_access_view_form" model="ir.ui.view">
+			<field name="name">store.access.form</field>
+			<field name="model">store.access</field>
+			<field name="arch" type="xml">
+				<form string="Store Access">
+					<sheet>
+						<group>
+							<group>
+								<field name="user_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="store_id" options="{'no_create': True, 'no_open': True}"/>
+							</group>
+							<group>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Access To">
+							<field name="is_issues" />
+							<field name="is_receiving"/>
+							<field name="is_supplier" />
+							<field name="is_contractor" />
+							<field name="is_materials" />
+							<field name="is_returns" />
+							<field name="is_site_inspector" />
+							<field name="is_view_attachments" />
+							<field name="is_reports" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="store_access_view_filter" model="ir.ui.view">
+            <field name="name">store.access.search</field>
+            <field name="model">store.access</field>
+            <field name="arch" type="xml">
+                <search string="Store Access">
+                    <field name="user_id" string="User"/>
+                    <field name="store_id" string="Store"/>
+               </search>
+            </field>
+        </record>
+		
+		<record id="store_access_action" model="ir.actions.act_window">
+			<field name="name">Store Access</field>
+			<field name="res_model">store.access</field>
+			<field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+		</record>
+		
+	</data>
+</openerp>
+	

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="psit_locations_view_tree" model="ir.ui.view">
+			<field name="name">locations.locations.tree</field>
+			<field name="model">locations.locations</field>
+			<field name="arch" type="xml">
+				<tree string="Locations">
+					<field name="unique_id"/>
+					<field name="name" string="Name"/>
+					<field name="block_id" string="Block"/>					
+				</tree>
+			</field>
+		</record>
+
+		<record id="psit_locations_view_form" model="ir.ui.view">
+			<field name="name">locations.locations.form</field>
+			<field name="model">locations.locations</field>
+			<field name="arch" type="xml">
+				<form string="Locations">
+					<sheet>
+						<group>
+							<group>
+								<field name="block_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="name" string="Village Name" />								
+								<!-- Note : Place holder will not work because 'location_unique_id' field receives and stores only integer values -->
+								<field name="unique_id" />								
+							</group>
+							<group/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="psit_locations_view_filter" model="ir.ui.view">
+			<field name="name">locations.locations.search</field>
+			<field name="model">locations.locations</field>
+			<field name="arch" type="xml">
+				<search string="Locations">
+					<field name="name" string="Village Name" />
+					<field name="unique_id" />
+					<separator />
+					<filter string="Village Name" name="name" />
+					<filter string="Unique ID" name="unique_id" />
+					<group expand="0" string="Group By">
+						<filter name="name" string="Village Name" domain="[]" context="{'group_by':'name'}" />
+						<filter name="unique_id" string="Unique Id" domain="[]" context="{'group_by':'unique_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="locations_locations_action" model="ir.actions.act_window">
+			<field name="name">Locations</field>
+			<field name="res_model">locations.locations</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('store_id.active_store','=',True)]</field>
+			<field name="search_view_id" ref="psit_locations_view_filter" />
+		</record>
+
+	</data>
+</openerp>
+	

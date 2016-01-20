@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="boq_quantity_view_tree" model="ir.ui.view">
+			<field name="name">boq.boq.tree</field>
+			<field name="model">boq.boq</field>
+			<field name="arch" type="xml">
+				<tree string="Bill Of Quantity">
+					<field name="material_id" />
+					<field name="date_created" />
+					<field name="quantity" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="boq_quantity_view_form" model="ir.ui.view">
+			<field name="name">boq.boq.form</field>
+			<field name="model">boq.boq</field>
+			<field name="arch" type="xml">
+				<form string="Bill Of Quantity">
+					<sheet>
+						<group>
+							<group>
+								<field name="material_id" />
+								<field name="quantity" />
+								<field name="date_created" />
+							</group>
+							<group>
+								<!-- <field name="material_id"/> -->
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="boq_quantity_action" model="ir.actions.act_window">
+			<field name="name">Bill Of Quantity</field>
+			<field name="res_model">boq.boq</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('store_id.active_store','=',True)]</field>
+		</record>
+		
+	</data>
+</openerp>
+	

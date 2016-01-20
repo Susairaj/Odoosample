@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+        <!-- Inter Store Receivings Tree views -->
+		<record id="material_receivings_inter_storetransfer_tree_view" model="ir.ui.view">
+			<field name="name">receivings.interstoretransfer.tree</field>
+			<field name="model">receivings.inter.storetransfer</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Inter Store Receivings">
+					<field name="name" />
+					<field name="receive_date" />
+					<field name="inter_store_id" />
+					<field name="supplier_invoice_number" />
+					<field name="item" />
+				</tree>
+			</field>
+		</record>
+		
+        <!-- Inter Store Receivings Form views -->
+		<record id="material_receivings_inter_storetransfer_form_view" model="ir.ui.view">
+			<field name="name">receivings.interstoretransfer.form</field>
+			<field name="model">receivings.inter.storetransfer</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Receiving">
+					<sheet>
+						<group>
+							<group>
+								<field name="receive_date"  />
+								<field name="supplier_invoice_number" />
+								<field name="grn_number" />
+								<field name="grn_date" />
+
+							</group>
+							<group>
+								<field name="memo" />
+								<field name="inter_store_id" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Materials">
+								<field name="material_ids" nolabel="1">
+									<tree>
+										<field name="material_id" string="Name" />
+          								<field name="material_unique_id" string="ID" />
+										<field name="invoice_qty" />
+										<field name="received_qty" />
+										<field name="accepted_qty" />
+										<field name="review" />
+									</tree>
+									<form string="Materials Quantity Receving">
+										<sheet>
+											<separator string="Materials Quantity" />
+											<group>
+												<group>
+													<field name="material_id" string="Name" />
+          											<field name="material_unique_id" string="ID" />
+												</group>
+												<group>
+													<field name="invoice_qty" />
+													<field name="received_qty" />
+													<field name="accepted_qty" />
+												</group>
+											</group>
+											<separator string="Review" />
+											<field name="review" nolabel="1">
+											</field>
+										</sheet>
+									</form>
+								</field>
+							</page>
+							<page string="Attachments">
+								<field name="inter_receiving_attachment_ids" nolabel="1">
+									<tree editable="bottom">
+										<field name="name" options="{'no_create': True, 'no_open': True}" />
+										<field name="receiving_attachment" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <!-- Inter Store Receivings Actino views -->
+		<record id="receivings_inter_storetransfer_action" model="ir.actions.act_window">
+			<field name="name">Inter Store Receivings</field>
+			<field name="res_model">receivings.inter.storetransfer</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a new Material.
+				</p>
+			</field>
+		</record>
+	
+	  <!-- Inter store receiving quantity view -->
+		<record id="interstore_receiving_quantity_form_view" model="ir.ui.view">
+			<field name="name">interstore.receiving.quantity.form</field>
+			<field name="model">interstore.receiving.quantity</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Materials Quantity Receving">
+					<sheet>
+						<separator string="Materials Quantity" />
+						<group>
+							<group>
+								<field name="material_id" />
+								<field name="material_unique_id" />
+							</group>
+							<group>
+								<field name="invoice_qty" />
+								<field name="received_qty" />
+								<field name="accepted_qty" />
+							</group>
+						</group>
+						<separator string="Review" />
+						<field name="review" nolabel="1">
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Inter Store Receiving graph views -->
+		<record id="interstore_receiving_quantity_view_graph" model="ir.ui.view">
+			<field name="name">interstore.receiving.quantity.graph</field>
+			<field name="model">interstore.receiving.quantity</field>
+			<field name="arch" type="xml">
+				<graph string="Receiving Analysis">
+					<field name="material_id" />
+					<field name="accepted_qty" type="measure" />
+				</graph>
+			</field>
+		</record>
+
+        <!-- Inter Store Receiving Quantity Actino views -->
+		<record id="interstore_receiving_quantity_action" model="ir.actions.act_window">
+			<field name="name">Monthly Recevings</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">receiving.quantity.material</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="interstore_receiving_quantity_view_graph" />
+		</record>
+
+	</data>
+</openerp>
+

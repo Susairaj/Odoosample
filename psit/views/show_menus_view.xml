@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="show_all_menu_action" model="ir.actions.act_window">
+			<field name="name">Show all menus</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">show.all_menus</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+		
+		<record id="show_menus_view_form" model="ir.ui.view">
+			<field name="name">show.menus.form</field>
+			<field name="model">show.all_menus</field>
+			<field name="arch" type="xml">
+				<form string="Show Menus">
+					<field name="name" invisible="1" />
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+					<img src="psit\static\img\issues.png"/>
+						<strong><a type="action" name="%(issues_issues_action)d">Issues</a></strong>
+					</div>
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\receive.png"/>
+						<strong><a type="action" name="%(material_receiving_action)d">Receivings</a></strong>
+					</div>
+
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\supplier.png"/>
+						<strong><a type="action" name="%(base.action_partner_supplier_form)d">Supplier</a></strong>
+					</div>
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\contractors.png"/>
+						<strong><a type="action" name="%(contractor_contractor_action)d">Contractors</a></strong>
+					</div>
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\materials.png"/>
+						<strong><a type="action" name="%(psit_material_action)d">Materials</a></strong>
+					</div>
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\reports.png"/>
+						<strong><a type="action" name="">Reports</a></strong>
+					</div>
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\returns.png"/>
+						<strong><a type="action" name="">Returns</a></strong>
+					</div>
+					<div style="float: left;margin: 5px;padding: 15px;width: 132px;height: 157px;border: 0px solid black;text-align: center;">
+						<img src="psit\static\img\site_inspector.png"/>
+						<strong><a type="action" name="%(site_inspector_form_action)d">Site Inspector</a></strong>
+					</div>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_my_courses_tree">
+			<field name="name">Store</field>
+			<field name="res_model">show.all_menus</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="store_store_board_form">
+			<field name="name">Project Site Inventory Tracker Dashboard</field>
+			<field name="model">board.board</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Project Site Inventory Tracker Dashboard">
+					<board style="1-2">
+						<column>
+							<action name="%(show_all_menu_action)d" />
+						</column>
+						<column>
+							<action name="%(issues_material_action)d" string="Issues" />
+							<action name="%(receiving_quantity_material_action)d" string="Receiving" />
+						</column>
+					</board>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="show_all_menu_board">
+			<field name="name">Menus Dashboard</field>
+			<field name="res_model">board.board</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<!-- <field name="usage">menu</field> -->
+			<field name="view_id" ref="store_store_board_form" />
+		</record>
+		
+	</data>
+</openerp>	

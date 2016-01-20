@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="material_receiving_tree_view" model="ir.ui.view">
+			<field name="name">materials.receiving.tree</field>
+			<field name="model">materials.receiving</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Receiving">
+					<field name="name" />
+					<field name="receive_date" />
+					<field name="supplier_id" string="Supplier" />
+					<field name="supplier_invoice_number" />
+					<field name="item" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="material_receiving_form_view" model="ir.ui.view">
+			<field name="name">materials.receiving.form</field>
+			<field name="model">materials.receiving</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Receiving">
+					<sheet>
+						<separator string="Receiving" />
+						<group>
+							<group>
+								<field name="receive_date" />
+								<field name="supplier_invoice_number" />
+								<field name="grn_date" />
+
+							</group>
+							<group>
+								<field name="grn_number" />
+								<field name="lr_numbrer" />
+								<field name="supplier_id" options="{'no_create': True, 'no_open': True}" />
+								<field name="item" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Materials">
+								<field name="material_ids" nolabel="1">
+									<tree>
+										<field name="material_id" string="Name" />
+          								<field name="material_unique_id" string="ID" />
+										<field name="invoice_qty" />
+										<field name="received_qty" />
+										<field name="accepted_qty" />
+										<field name="review" />
+									</tree>
+									<form string="Materials Quantity Receving">
+										<sheet>
+											<separator string="Materials Quantity" />
+											<group>
+												<group>
+													<field name="material_id" string="Name" />
+          											<field name="material_unique_id" string="ID" />
+												</group>
+												<group>
+													<field name="invoice_qty" />
+													<field name="received_qty" />
+													<field name="accepted_qty" />
+												</group>
+											</group>
+											<separator string="Review" />
+											<field name="review" nolabel="1">
+											</field>
+										</sheet>
+									</form>
+								</field>
+							</page>
+							<page string="Attachments">
+								<field name="receiving_attachment_ids" nolabel="1">
+									<tree create="false">
+										<field name="receiving_attach_type_id" options="{'no_create': True, 'no_open': True}" />
+									</tree>
+									<form string="Receiving Attachments">
+										<group>
+											<group>
+												<field name="receiving_attach_type_id" options="{'no_create': True, 'no_open': True}" readonly="1" />
+												<field name="receiving_attachment_ids" widget="many2many_binary" />
+											</group>
+											<group>
+											</group>
+										</group>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="material_receiving_view_search" model="ir.ui.view">
+			<field name="name">materials.receiving.search</field>
+			<field name="model">materials.receiving</field>
+			<field name="arch" type="xml">
+				<search string="Materials Receving">
+					<field name="grn_number" string="GNR Number" />
+					<field name="lr_numbrer" string="LR Number" />
+					<field name="supplier_invoice_number" string="Supplier Invoice#" />
+					<filter string="Supplier Invoice#" domain="[]"
+						context="{'group_by': 'supplier_invoice_number'}" />
+				</search>
+			</field>
+		</record>
+
+		<record id="material_receiving_action" model="ir.actions.act_window">
+			<field name="name">Receiving</field>
+			<field name="res_model">materials.receiving</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('store_id.active_store','=',True)]</field>
+			<field name="search_view_id" ref="material_receiving_view_search" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a new Material.
+				</p>
+			</field>
+		</record>
+
+		<!-- material receiving quantity view -->
+		<record id="material_receiving_quantity_form_view" model="ir.ui.view">
+			<field name="name">receiving.quantity.material.form</field>
+			<field name="model">receiving.quantity.material</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Materials Quantity Receving">
+					<sheet>
+						<separator string="Materials Quantity" />
+						<group>
+							<group>
+								<field name="material_id" />
+								<field name="material_unique_id" />
+							</group>
+							<group>
+								<field name="invoice_qty" />
+								<field name="received_qty" />
+								<field name="accepted_qty" />
+							</group>
+						</group>
+						<separator string="Review" />
+						<field name="review" nolabel="1">
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="material_receiving_quantity_action" model="ir.actions.act_window">
+			<field name="name">Material Quantity Receiving</field>
+			<field name="res_model">receiving.quantity.material</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+		<!-- Material Receiving graph views -->
+		<record id="receiving_quantity_materials_view_graph" model="ir.ui.view">
+			<field name="name">receiving.quantity.material.graph</field>
+			<field name="model">receiving.quantity.material</field>
+			<field name="arch" type="xml">
+				<graph string="Receiving Analysis">
+					<field name="material_id" />
+					<field name="accepted_qty" type="measure" />
+				</graph>
+			</field>
+		</record>
+
+		<record id="receiving_quantity_material_action" model="ir.actions.act_window">
+			<field name="name">Monthly Recevings</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">receiving.quantity.material</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="receiving_quantity_materials_view_graph" />
+		</record>
+
+	</data>
+</openerp>
+

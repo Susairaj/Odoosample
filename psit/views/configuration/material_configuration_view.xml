@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="material_configuration_view_tree" model="ir.ui.view">
+			<field name="name">material.configuration.tree</field>
+			<field name="model">material.configuration</field>
+			<field name="arch" type="xml">
+				<tree string="Material Configuration">
+					<field name="name" />
+					<field name="unique_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="material_configuration_view_form" model="ir.ui.view">
+			<field name="name">material.configuration.form</field>
+			<field name="model">material.configuration</field>
+			<field name="arch" type="xml">
+				<form string="Store Details">
+					<sheet string="Material Configuration">
+						<group>
+							<group>
+								<field name="name" />
+								<field name="unique_id" />
+							</group>
+							<group/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="material_configuration_action" model="ir.actions.act_window">
+			<field name="name">Material Configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">material.configuration</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new material configuration details.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</openerp>

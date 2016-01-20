@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="price_level_view_tree" model="ir.ui.view">
+			<field name="name">price.level.tree</field>
+			<field name="model">price.level</field>
+			<field name="arch" type="xml">
+				<tree string="Price Level" editable="top">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="price_level_action">
+			<field name="name">Price Level</field>
+			<field name="res_model">price.level</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</openerp>

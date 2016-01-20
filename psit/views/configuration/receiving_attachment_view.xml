@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="receiving_attachment_type_tree_view" model="ir.ui.view">
+			<field name="name">receiving.attachment.type.tree</field>
+			<field name="model">receiving.attachment.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Receiving Attachment Type" editable="top">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="receiving_attachment_type_action" model="ir.actions.act_window">
+			<field name="name">Receiving Attachments</field>
+			<field name="res_model">receiving.attachment.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+		
+	</data>
+</openerp>
+	

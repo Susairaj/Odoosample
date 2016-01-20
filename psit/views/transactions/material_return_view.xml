@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="material_return_tree_view" model="ir.ui.view">
+			<field name="name">materials.return.tree</field>
+			<field name="model">materials.return</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Returns">
+					<field name="name"/>
+					<field name="return_date" />
+					<field name="supplier_id" string="Supplier" />
+					<field name="mrn_number" string="MRN #"/>
+					<field name="return_reason" string="Type" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="material_return_form_view" model="ir.ui.view">
+			<field name="name">materials.return.form</field>
+			<field name="model">materials.return</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Returns">
+					<sheet>
+					<separator string="Returns"/>
+					<group>
+						<group>
+							<field name="return_date" />
+							<field name="mrn_number" />
+							<field name="supplier_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="return_reason" options="{'no_create': True, 'no_open': True}"/>
+						</group>
+						<group>
+							<field name="memo"/>
+						</group>
+					</group>
+					<notebook>
+							<page string="Materials">
+								<field name="material_ids" nolabel="1">
+									<tree editable="bottom">
+										<field name="material_id"/>
+										<field name="material_unique_id"/>
+										<field name="material_qty"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Attachments">
+								<field name="return_attachment_ids" nolabel="1">
+									<tree create="false">
+										<field name="return_attachmen_type_id" />
+									</tree>
+									<form string="Return Attachment">
+										<sheet string="Return Attachment">
+											<group>
+												<group>
+													<field name="return_attachmen_type_id" options="{'no_create': True, 'no_open': True}"
+														readonly="1" />
+												</group>
+												<group></group>
+												<group>
+													<field name="return_attachment_ids" widget="many2many_binary">
+														<tree string="Upload">
+															<field name="datas" />
+															<field name="datas_fname" />
+														</tree>
+													</field>
+												</group>
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="material_return_view_search" model="ir.ui.view" >
+			<field name="name">materials.return.search</field>
+			<field name="model">materials.return</field>
+			<field name="arch" type="xml">
+				<search string="Return">
+					<field name="mrn_number" string="MNR Number" />
+					<field name="supplier_id" string="Supplier Id" />
+					<field name="return_reason" string="Reason for Return" />
+					<filter string="InterStore" domain="[]" context="{'group_by': 'inter_store_id'}"/>
+				</search>
+			</field>
+		</record>
+		
+		<record id="material_return_action" model="ir.actions.act_window" >
+			<field name="name">Receiving Returns</field>
+			<field name="res_model">materials.return</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="material_return_view_search" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a new Return Material.
+				</p>
+			</field>
+		</record>
+
+	</data>
+</openerp>

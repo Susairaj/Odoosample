@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="contractor_contractor_view_form" model="ir.ui.view">
+			<field name="name">contractor.contractor.form</field>
+			<field name="model">contractor.contractor</field>
+			<field name="arch" type="xml">
+				<form string="Company">
+					<sheet>
+						<group col="4" colspan="4">
+					        <field name="name" placeholder="Full Name" colspan="2"/>
+					        <newline/>
+					        <field name="business_title" placeholder="Business Title" colspan="2"/>
+					        <newline/>
+					        <field name="price_level_id" placeholder="Price Level" options="{'no_create': True, 'no_open': True}"/>
+					        <field name="address" placeholder="Address" />
+					        <field name="email" placeholder="Email" />
+					        <field name="city" placeholder="City" />
+					        <field name="mobile" placeholder="Street..." />
+					        <field name="state_id" placeholder="State" />
+					        <field name="phone" placeholder="Phone number" />
+					        <field name="country_id" placeholder="Country" />
+					    </group>
+						<notebook>
+							<page String="Authorized Person">
+								<field name="authorized_person_ids" >
+									<tree editable='bottom'>
+										<field name="name" string="Name" required="1"/>
+										<field name="mobile" />
+									</tree>
+								</field>
+							</page>
+							<page string="Notes">
+								<field name="note" />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="contractor_contractor_view_search" model="ir.ui.view">
+            <field name="name">contractor.contractor.search</field>
+            <field name="model">contractor.contractor</field>
+            <field name="arch" type="xml">
+                <search string="Search Company">
+                	<field name="name" />
+					<field name="business_title" />
+					<field name="mobile" />
+					<field name="phone" />
+					<field name="address" />
+					<field name="city" />
+					<field name="state_id" />
+					<field name="country_id" />
+					<field name="email" />
+					<field name="price_level_id" />
+					<field name="note" />
+                   <group name="group_by" string="Group By">
+                       <filter name="Price Level" string="Price Level" domain="[]" context="{'group_by' : 'price_level_id'}" />
+                   </group>
+               </search>
+            </field>
+        </record>
+		
+		<record id="contractor_contractor_view_tree" model="ir.ui.view">
+			<field name="name">contractor.contractor.tree</field>
+			<field name="model">contractor.contractor</field>
+			<field name="arch" type="xml">
+				<tree string="Groups">
+					<field name="id" />
+					<field name="name" />
+					<field name="business_title" />
+					<field name="mobile" />
+					<field name="phone" />
+					<field name="address" />
+					<field name="email" />
+					<field name="price_level_id" />
+					<field name="balance" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="contractor_contractor_action">
+			<field name="name">Contractors</field>
+			<field name="res_model">contractor.contractor</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('store_id.active_store','=',True)]</field>
+		</record>
+		
+	</data>
+</openerp>

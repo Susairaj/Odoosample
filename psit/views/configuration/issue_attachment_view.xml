@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="issue_attachment_type_tree_view" model="ir.ui.view">
+			<field name="name">issue.attachment.type.tree</field>
+			<field name="model">issue.attachment.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Issue Attachment Type" editable="top">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="issue_attachment_type_action" model="ir.actions.act_window">
+			<field name="name">Issue Returns Attachment</field>
+			<field name="res_model">issue.attachment.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+	</data>
+</openerp>

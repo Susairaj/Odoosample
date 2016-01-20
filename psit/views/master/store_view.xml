@@ -1,0 +1,182 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!-- Added by Nivas M -->
+		<record id="view_users_form_inherited_psit" model="ir.ui.view">
+			<field name="name">res.usersr.inherit</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="active_store_id" /> 
+				</field>
+			</field>
+		</record>
+		<!-- End -->
+	
+		<record id="store_store_view_tree" model="ir.ui.view">
+			<field name="name">store.store.tree</field>
+			<field name="model">store.store</field>
+			<field name="arch" type="xml">
+				<tree string="Store Details">
+					<field name="store_sequence" string="ID"/>
+					<field name="name" string="Name"/>
+					<field name="business_type" string="Type"/>
+					<field name="city" />
+					<field name="phone" />
+					<field name="email" />
+					<field name="company_id" string="Company"/>
+					<field name="project_id" string="Project"/>
+					<!-- Added by Nivas -->
+					<field name="user_id" invisible="1"/>
+					<!-- <field name="clear_active_store"/> -->
+					<field name="active_store" invisible="1" />
+					<button name="get_active_store" type="object" string="Select Store" context="{'receice_active_store': 'yes'}"/>
+					<button name="%(show_all_menu_board)d" type="action" string="Select Store"/> 
+				</tree>
+			</field>
+		</record>
+		
+		<record id="store_store_view_form" model="ir.ui.view">
+			<field name="name">store.store.form</field>
+			<field name="model">store.store</field>
+			<field name="arch" type="xml">
+				<form string="Store Details">
+					<sheet string="Store Details">
+						<field name="logo" widget="image" class="oe_avatar"/>
+	                    <div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1>
+	                            <field name="name" class="oe_inline"/>
+	                        </h1>
+	                        <label for="store_sequence" class="oe_edit_only"/>
+	                        <h3>
+	                            <field name="store_sequence" class="oe_inline"/>
+	                        </h3>
+	                    </div>
+						<group>
+							<group>
+								<field name="company_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="project_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="business_type"/>
+							</group>
+							<group>
+								<field name="phone"/>
+								<field name="email"/>
+								<field name="currency_id" options="{'no_create': True, 'no_open': True}"/>
+							</group>
+						</group>
+						<group string="Address Details">
+							<group>
+								<field name="address1"/>
+								<field name="address2"/>
+							</group>
+							<group>
+								<field name="city"/>
+								<field name="zip"/>
+								<field name="state_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="country_id" options="{'no_create': True, 'no_open': True}"/>
+							</group>
+						</group>
+						<separator string="Description"/>
+						<field name="description" nolabel="1" placeholder="Description"/>						
+						<!-- Added by Nivas -->
+						<!-- <field name="clear_active_store" /> -->
+						<field name="user_id" />
+						<field name="active_store" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="store_store_view_kanban" model="ir.ui.view">
+			<field name="name">store.store.kanban</field>
+			<field name="model">store.store</field>
+			<field name="arch" type="xml">
+				<kanban class="o_store_store_kanban">
+					<field name="name" />
+					<field name="business_type" />
+					<field name="city" />
+					<field name="company_id" />
+					<field name="project_id" />
+					<field name="email" />
+					<field name="logo" />
+					<templates>
+						<t t-name="kanban-box">
+							<div class="oe_kanban_global_click o_store_store_kanban">
+								<div class="o_kanban_tags_section oe_kanban_partner_categories" />
+								<div class="o_kanban_image" style="width: 68px;">
+									<img t-if="record.logo.raw_value" t-att-src="'data:image/png;base64,'+record.logo.raw_value" style="height: 87px;"/>
+								</div>
+								<div class="oe_kanban_details">
+									<strong class="oe_partner_heading">
+										<field name="name" />
+									</strong>
+									<ul>
+										<li t-if="record.business_type.raw_value">
+											<field name="business_type" />
+										</li>
+										<li t-if="record.city.raw_value">
+											<field name="city" />
+										</li>
+										<li t-if="record.company_id.raw_value">
+											<field name="company_id" />
+											,
+											<field name="project_id" />
+										</li>
+										<li>
+											<field name="email" />
+										</li>
+									</ul>
+									<div class="oe_kanban_partner_links" />
+								</div>
+								<div style="position: absolute;right: 3px;top:77px;">
+								<a type="button">
+									<button name="%(show_all_menu_board)d" type="action"
+										string="Select Store" class="oe_highlight">
+										<span>Select Store</span>
+									</button>
+								</a>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+		
+		<record id="store_store_view_search" model="ir.ui.view">
+            <field name="name">store.store.search</field>
+            <field name="model">store.store</field>
+            <field name="arch" type="xml">
+                <search string="Store Details">
+                    <field name="name" string="Store Name"/>
+                    <field name="store_sequence" string="Store #"/>
+                    <field name="company_id" string="Company"/>
+                    <field name="project_id" string="Project"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Store Name" context="{'group_by': 'name'}"/>
+                        <filter string="Company" context="{'group_by':'company_id'}"/>
+                        <filter string="Project" context="{'group_by':'project_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="store_store_action" model="ir.actions.act_window">
+           <field name="name">Stores</field>
+           <field name="type">ir.actions.act_window</field>
+           <field name="res_model">store.store</field>
+           <field name="view_type">form</field>
+           <field name="view_mode">tree,kanban,form</field>
+           <field name="search_view_id" ref="store_store_view_search"/>
+           <field name="help" type="html">
+           <p class="oe_view_nocontent_create">
+			    Click to add a new store details.
+			</p></field>
+        </record>
+        
+	</data>
+</openerp>

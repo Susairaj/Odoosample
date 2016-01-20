@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!-- Receiving attachment type -->
+
+        <record id="demo_invoice_0" model="receiving.attachment.type">
+            <field name="name">Invoice</field>
+        </record>
+        <record id="demo_invoice_1" model="receiving.attachment.type">
+            <field name="name">LR Copy</field>
+        </record>
+        <record id="demo_invoice_2" model="receiving.attachment.type">
+            <field name="name">Packing list copy</field>
+        </record>
+        <record id="demo_invoice_3" model="receiving.attachment.type">
+            <field name="name">Material Acknowledgement </field>
+        </record>
+        
+        <!--Receivings Return attachment type -->
+
+        <record id="demo_invoice_4" model="return.attachment.type">
+            <field name="name">Invoice</field>
+        </record>
+        <record id="demo_invoice_5" model="return.attachment.type">
+            <field name="name">LR Copy</field>
+        </record>
+        <record id="demo_invoice_6" model="return.attachment.type">
+            <field name="name">Packing list copy</field>
+        </record>
+        <record id="demo_invoice_7" model="return.attachment.type">
+            <field name="name">Material Acknowledgement </field>
+        </record> 
+        
+        <!-- Issue attachment type -->
+
+        <record id="demo_invoice_8" model="issue.attachment.type">
+            <field name="name">Indent Copy</field>
+        </record>
+        <record id="demo_invoice_9" model="issue.attachment.type">
+            <field name="name">Issue Chalan</field>
+        </record>
+        <record id="demo_invoice_10" model="issue.attachment.type">
+            <field name="name">Receiver Acknowledgement</field>
+        </record> 
+    </data>
+</openerp>

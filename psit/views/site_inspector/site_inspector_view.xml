@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="site_inspector_tree_view" model="ir.ui.view">
+			<field name="name">site.inspector.tree</field>
+			<field name="model">site.inspector</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Site Inspector">
+					<field name="contractor_id" />
+					<field name="block_id" />
+					<field name="location_id" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="site_inspector_form_view" model="ir.ui.view" >
+			<field name="name">site.inspector.form</field>
+			<field name="model">site.inspector</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Site Inspector">
+					<group>
+						<group string="Site Inspector">
+							<field name="contractor_id" style="width:200px" options="{'no_create': True, 'no_open': True}"/>
+							<field name="block_id" style="width:200px" options="{'no_create': True, 'no_open': True}"/>
+							<field name="location_id" style="width:200px" options="{'no_create': True, 'no_open': True}"/>
+						</group>
+						<group/>
+					</group>
+					<separator string="Materials Info"/>
+					<field name="site_material_ids">
+						<tree editable="bottom">
+							<field name="block_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="location_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="material_category_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="material_code"/>
+							<field name="material_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="unit_id"/>
+							<field name="cumulative_issues_till_date"/>
+							<field name="cumulative_returns_till_date"/>
+							<field name="total_net_issues"/>
+							<field name="consumption_till_previous_updation"/>
+							<field name="previous_updation_date"/>
+							<field name="updated_by"/>
+							<field name="balance_with_contractor"/>
+						</tree>
+					</field>	
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="site_inspector_form_action">
+			<field name="name">Site Inspector</field>
+			<field name="res_model">site.inspector</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</openerp>
+
